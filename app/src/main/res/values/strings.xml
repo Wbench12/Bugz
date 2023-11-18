@@ -22,7 +22,7 @@
     <string name="choose_service">Choose Service</string>
     <string name="choose_a_company">Choose a Company</string>
     <string name="company_profile">Company Profile</string>
-
+    <string name="transportation">Transportation</string>
     <string name="enter_information">Enter your informations</string>
     <string name="email">Email</string>
     <string name="email_label">name@example.com</string>

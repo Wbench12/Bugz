@@ -2,6 +2,7 @@ package com.example.b2bmatchup.ui.screens
 
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.scrollable
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material3.Button
@@ -55,6 +58,7 @@ import com.example.b2bmatchup.ui.theme.Shapes
 fun SignUpScreen(
     onLogInNextButtonClicked: () -> Unit,
     onSignUpButtonClicked: () -> Unit,
+    onButtonClicked: () -> Unit,
     modifier: Modifier =Modifier
 ) {
     var companyName by rememberSaveable {
@@ -76,9 +80,6 @@ fun SignUpScreen(
     var serviceType by rememberSaveable {
         mutableStateOf("")
     }
-    var value by rememberSaveable {
-        mutableStateOf("")
-    }
 
     var isButton1Enabled by remember { mutableStateOf(false) }
     var isButton2Enabled by remember { mutableStateOf(false) }
@@ -87,18 +88,28 @@ fun SignUpScreen(
     var isButton5Enabled by remember { mutableStateOf(false) }
 
 
-    Scaffold(topBar = { AppBar(title = B2BMatchUpScreen.SignUp.title)}) {InnerPadding ->
+    Scaffold(topBar = { AppBar(title = B2BMatchUpScreen.SignUp.title,onButtonClicked)}) { InnerPadding ->
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = modifier.padding(InnerPadding)
+            modifier = modifier
+                .padding(InnerPadding)
+                .verticalScroll(rememberScrollState())
         ) {
+            Spacer(modifier = modifier.height(30.dp))
             TextField(
                 value = companyName,
-                onValueChange = { companyName = it
-                    isButton1Enabled = value.isNotEmpty() },
+                onValueChange = {
+                    companyName = it
+                    isButton1Enabled = companyName.isNotEmpty()
+                },
                 label = { Text(text = stringResource(id = R.string.company_name)) },
                 placeholder = { Text(text = stringResource(id = R.string.company_name_label)) },
-                leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = null) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Email,
+                        contentDescription = null
+                    )
+                },
                 shape = Shapes.small,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -109,11 +120,18 @@ fun SignUpScreen(
 
             TextField(
                 value = email,
-                onValueChange = { email = it
-                    isButton2Enabled = value.isNotEmpty()},
+                onValueChange = {
+                    email = it
+                    isButton2Enabled = email.isNotEmpty()
+                },
                 label = { Text(text = stringResource(id = R.string.email)) },
                 placeholder = { Text(text = stringResource(id = R.string.email_label)) },
-                leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = null) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Email,
+                        contentDescription = null
+                    )
+                },
                 shape = Shapes.small,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -124,11 +142,18 @@ fun SignUpScreen(
 
             TextField(
                 value = password,
-                onValueChange = { password = it
-                    isButton3Enabled = value.isNotEmpty()},
+                onValueChange = {
+                    password = it
+                    isButton3Enabled = password.isNotEmpty()
+                },
                 label = { Text(text = stringResource(id = R.string.password)) },
                 placeholder = { Text(text = stringResource(id = R.string.password_label)) },
-                leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = null) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Email,
+                        contentDescription = null
+                    )
+                },
                 shape = Shapes.small,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -139,11 +164,18 @@ fun SignUpScreen(
 
             TextField(
                 value = companyDescription,
-                onValueChange = { companyDescription = it
-                    isButton4Enabled = value.isNotEmpty()},
+                onValueChange = {
+                    companyDescription = it
+                    isButton4Enabled = companyDescription.isNotEmpty()
+                },
                 label = { Text(text = stringResource(id = R.string.company_description)) },
                 placeholder = { Text(text = stringResource(id = R.string.company_description_label)) },
-                leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = null) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Email,
+                        contentDescription = null
+                    )
+                },
                 shape = Shapes.small,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -155,45 +187,45 @@ fun SignUpScreen(
 
             TextField(
                 value = serviceType,
-                onValueChange = { serviceType = it
-                    isButton5Enabled = value.isNotEmpty()},
+                onValueChange = {
+                    serviceType = it
+                    isButton5Enabled = serviceType.isNotEmpty()
+                },
                 label = { Text(text = stringResource(id = R.string.service_type)) },
                 placeholder = { Text(text = stringResource(id = R.string.service_type_label)) },
-                leadingIcon = { Icon(imageVector = Icons.Default.Email, contentDescription = null) },
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Email,
+                        contentDescription = null
+                    )
+                },
                 shape = Shapes.small,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp)
                     .height(63.dp)
             )
-        }
-        Button(
-            onClick = { onSignUpButtonClicked },
-            enabled = isButton1Enabled && isButton2Enabled && isButton3Enabled && isButton4Enabled && isButton5Enabled ,
-            modifier = Modifier
-                .fillMaxWidth(1f)
-                .height(65.dp)
-                .padding(start = 15.dp, end = 15.dp)
+            Spacer(modifier = modifier.height(85.dp))
+            Button(
+                onClick = onSignUpButtonClicked,
+                enabled = isButton1Enabled && isButton2Enabled && isButton3Enabled && isButton4Enabled && isButton5Enabled,
+                modifier = Modifier
+                    .fillMaxWidth(1f)
+                    .height(65.dp)
+                    .padding(start = 15.dp, end = 15.dp)
 
 
-        ) {
-            Text(text = stringResource(id = R.string.signup), fontSize = 30.sp)
-        }
+            ) {
+                Text(text = stringResource(id = R.string.signup), fontSize = 30.sp)
+            }
 
-        TextButton(onClick = onLogInNextButtonClicked ) {
-            Text(text = stringResource(id = R.string.already_have_an_account))
+            TextButton(onClick = onLogInNextButtonClicked) {
+                Text(text = stringResource(id = R.string.already_have_an_account))
+            }
         }
     }
-
 }
 
-@Preview(showBackground =true)
-@Composable
-fun  SignUpScreenPreview() {
-    B2BMatchUpTheme {
-        SignUpScreen({}, {})
-    }
-}
 
 
 

@@ -91,6 +91,7 @@ fun PasswordSection(
 @Composable
 fun AppBar (
     @StringRes title: Int,
+    onButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val appBarColor = MaterialTheme.colorScheme.surfaceVariant
@@ -103,7 +104,7 @@ fun AppBar (
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = onButtonClicked,
                     modifier = modifier
                 ) {
                     Icon(imageVector = Icons.Default.ArrowBack, contentDescription = null)

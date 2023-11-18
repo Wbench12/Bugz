@@ -43,6 +43,7 @@ import com.example.b2bmatchup.ui.theme.Shapes
 @Composable
 fun LogInScreen(
     onLogInClicked: () -> Unit,
+    onButtonClicked: () -> Unit,
     modifier: Modifier = Modifier
 ){
     val primaryColor = MaterialTheme.colorScheme.primary
@@ -56,7 +57,7 @@ fun LogInScreen(
     }
     Scaffold (
         topBar = {
-            AppBar(title = B2BMatchUpScreen.LogIn.title)
+            AppBar(title = B2BMatchUpScreen.LogIn.title,onButtonClicked)
         }
     ){ innerPadding ->
         Column(
@@ -104,7 +105,7 @@ fun LogInScreen(
             )
             Spacer(modifier = modifier.height(180.dp))
             Button(
-                onClick = {  },
+                onClick = onLogInClicked,
                 enabled = isButton1Enabled && isButton2Enabled,
                 modifier = Modifier
                     .fillMaxWidth(1f)

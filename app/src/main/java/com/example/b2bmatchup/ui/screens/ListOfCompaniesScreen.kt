@@ -51,6 +51,7 @@ fun CompanyCard(
                 text = stringResource(id = companyName),
                 fontWeight = FontWeight.Bold,
                 fontSize = 22.sp,
+                color = Color.Black,
                 modifier = modifier
                     .background(MaterialTheme.colorScheme.primary)
                     .height(70.dp)

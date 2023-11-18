@@ -13,8 +13,11 @@ import androidx.navigation.compose.rememberNavController
 import com.example.b2bmatchup.ui.screens.ChooseServiceScreen
 import com.example.b2bmatchup.ui.screens.FirstScreen
 import com.example.b2bmatchup.ui.screens.GetStartedScreen
+import com.example.b2bmatchup.ui.screens.ListOfCompaniesScreen
 import com.example.b2bmatchup.ui.screens.LogInScreen
+import com.example.b2bmatchup.ui.screens.ServiceDetailesScreen
 import com.example.b2bmatchup.ui.screens.ServiceViewModel
+import com.example.b2bmatchup.ui.screens.SignUpScreen
 
 
 enum class B2BMatchUpScreen(@StringRes val title: Int){
@@ -60,11 +63,32 @@ fun B2BMatchUpApp (){
             LogInScreen(
                 onLogInClicked = {
                     navController.navigate(B2BMatchUpScreen.UpdateCompanyScreen.name)
+                },
+                onButtonClicked = {
+                    navController.navigateUp()
                 }
             )
         }
+        composable(route = B2BMatchUpScreen.SignUp.name){
+            SignUpScreen(
+                onLogInNextButtonClicked = { /*TODO*/ },
+                onSignUpButtonClicked = { /*TODO*/ },
+                onButtonClicked = {
+                    navController.navigateUp()
+                })
+        }
         composable(route = B2BMatchUpScreen.ChooseService.name){
-            ChooseServiceScreen()
+            ChooseServiceScreen(
+                onIconClicked = {
+                    navController.navigate(B2BMatchUpScreen.ListOfCompanies.name)
+                },
+                onButtonClicked = {
+                    navController.navigateUp()
+                }
+            )
+        }
+        composable(route = B2BMatchUpScreen.ListOfCompanies.name){
+            ListOfCompaniesScreen()
         }
 
     }
